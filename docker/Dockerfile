@@ -1,7 +1,16 @@
-FROM ros:kinetic-robot-xenial
+FROM node:12
 
-RUN apt-get update && apt-get install -y \
-  libqt4-dev \
-  libopencv-dev \
-  liblua5.2-dev \
+WORKDIR /app
+
+COPY package*.json ./
+
+RUN npm install
+
+COPY . .
+
+ENV PORT=8080
+
+EXPOSE 8080
+
+CMD [ "npm", "start" ]
  
